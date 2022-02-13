@@ -1,5 +1,6 @@
 package br.com.letscode.rebelalliance.domain;
 
+import br.com.letscode.rebelalliance.enums.Race;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,5 +11,5 @@ import lombok.Data;
 public class Rebel {
     private String Name;
     private int Age;
-    private br.com.letscode.rebelalliance.enums.Race Race;
+    private Race Race;
 }
