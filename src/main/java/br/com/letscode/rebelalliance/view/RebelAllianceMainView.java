@@ -121,7 +121,11 @@ public class RebelAllianceMainView {
                 this.centralIntelligence.getRebels()) {
             customRebelLinkedList.push(rebel);
         }
+
+        //Set property that will be used to sort the list
         customRebelLinkedList.setOrderBy(orderBy.name());
+
+        //Sort the rebel list using the Merge Sort Algorithm
         customRebelLinkedList.mergeSort();
 
         //Print sorted list on console terminal
