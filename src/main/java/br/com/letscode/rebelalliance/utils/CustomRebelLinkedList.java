@@ -151,13 +151,15 @@ public class CustomRebelLinkedList {
         head = new_node;
     }
 
-    // Utility function to print the linked list
-    public void printList()
+    // Utility function to convert the linked list to String
+    public String toString()
     {
         node headref = this.head;
+        StringBuilder sb = new StringBuilder();
         while (headref != null) {
-            System.out.print(headref.rebel + "\n");
+            sb.append(headref.rebel.toString() + "\n");
             headref = headref.next;
         }
+        return sb.toString();
     }
 }
