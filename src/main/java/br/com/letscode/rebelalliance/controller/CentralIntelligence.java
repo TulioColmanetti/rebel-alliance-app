@@ -1,6 +1,6 @@
 package br.com.letscode.rebelalliance.controller;
 
-import br.com.letscode.rebelalliance.models.Rebel;
+import br.com.letscode.rebelalliance.domain.Rebel;
 import lombok.Cleanup;
 import lombok.Getter;
 
