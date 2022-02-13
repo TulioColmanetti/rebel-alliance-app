@@ -1,4 +1,4 @@
-package br.com.letscode.rebelalliance.models;
+package br.com.letscode.rebelalliance.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
