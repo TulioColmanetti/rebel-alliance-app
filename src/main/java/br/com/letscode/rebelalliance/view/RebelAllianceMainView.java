@@ -69,7 +69,7 @@ public class RebelAllianceMainView {
     }
 
     private void askOrderBy() {
-        System.out.println("Por qual propriedade quer ordenar?");
+        System.out.println("Por qual propriedade deseja ordenar?");
         for (OrderBy orderBy : OrderBy.values()) {
             System.out.printf("%d - %s\n", orderBy.ordinal(), orderBy.getDescription());
         }
@@ -121,8 +121,10 @@ public class RebelAllianceMainView {
         }
         customRebelLinkedList.setOrderBy(orderBy.name());
         customRebelLinkedList.mergeSort();
-        customRebelLinkedList.printList();
-        System.out.println();
+
+        //Print sorted list on console terminal
+        System.out.println(customRebelLinkedList);
+
     }
 
     public void renderMenu() {
