@@ -2,7 +2,8 @@ package br.com.letscode.rebelalliance.view;
 
 import br.com.letscode.rebelalliance.controller.CentralIntelligence;
 import br.com.letscode.rebelalliance.enums.Race;
-import br.com.letscode.rebelalliance.models.Rebel;
+import br.com.letscode.rebelalliance.domain.Rebel;
+import br.com.letscode.rebelalliance.utils.CustomRebelLinkedList;
 
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
@@ -95,12 +96,25 @@ public class RebelAllianceMainView {
         }
     }
 
+    private void printAndGenerateReportOfSortedRebels() {
+        CustomRebelLinkedList customRebelLinkedList = new CustomRebelLinkedList();
+        for (Rebel rebel :
+                this.centralIntelligence.getRebels()) {
+            customRebelLinkedList.push(rebel);
+        }
+        customRebelLinkedList.setOrderBy("age");
+        customRebelLinkedList.mergeSort();
+        customRebelLinkedList.printList();
+        System.out.println();
+    }
+
     public void renderMenu() {
         System.out.println("<<<<< Menu da Aliança Rebelde >>>>>");
         System.out.println("Escolha uma opção abaixo:");
         System.out.println("'S' - Solicitar Ingresso na Aliança");
         System.out.println("'E' - Exibir Lista de Rebeldes");
         System.out.println("'R' - Gerar Relatório de Rebeldes");
+        System.out.println("'P' - Imprimir e Gerar Relatório Ordenado");
         System.out.println("'X' - Sair");
     }
 
@@ -123,6 +137,10 @@ public class RebelAllianceMainView {
                     break;
                 case "R":
                     generateRebelsReportCI();
+                    renderMenu();
+                    break;
+                case "P":
+                    printAndGenerateReportOfSortedRebels();
                     renderMenu();
                     break;
                 case "X":
