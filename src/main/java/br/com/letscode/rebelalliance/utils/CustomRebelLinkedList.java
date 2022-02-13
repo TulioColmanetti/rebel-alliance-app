@@ -63,6 +63,27 @@ public class CustomRebelLinkedList {
         return result;
     }
 
+    private node sortedMergeByRace(node a, node b)
+    {
+        node result = null;
+        /* Base cases */
+        if (a == null)
+            return b;
+        if (b == null)
+            return a;
+
+        /* Pick either a or b, and recur */
+        if (a.rebel.getRace().ordinal() <= b.rebel.getRace().ordinal()) {
+            result = a;
+            result.next = sortedMergeByRace(a.next, b);
+        }
+        else {
+            result = b;
+            result.next = sortedMergeByRace(a, b.next);
+        }
+        return result;
+    }
+
     public void mergeSort(){
         this.head = internalMergeSort(this.head);
     }
@@ -92,6 +113,9 @@ public class CustomRebelLinkedList {
         switch (orderBy.toUpperCase()){
             case "AGE":
                 sortedlist = sortedMergeByAge(left, right);
+                break;
+            case "RACE":
+                sortedlist = sortedMergeByRace(left, right);
                 break;
             default:
                 sortedlist = sortedMergeByName(left, right);
