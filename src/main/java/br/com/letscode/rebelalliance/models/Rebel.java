@@ -1,4 +1,4 @@
-package br.com.letscode.rebelalliance;
+package br.com.letscode.rebelalliance.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,5 +10,5 @@ import lombok.Data;
 public class Rebel {
     private String Name;
     private int Age;
-    private Race Race;
+    private br.com.letscode.rebelalliance.enums.Race Race;
 }

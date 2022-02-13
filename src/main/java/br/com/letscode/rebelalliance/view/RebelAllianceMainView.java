@@ -1,4 +1,8 @@
-package br.com.letscode.rebelalliance;
+package br.com.letscode.rebelalliance.view;
+
+import br.com.letscode.rebelalliance.controller.CentralIntelligence;
+import br.com.letscode.rebelalliance.enums.Race;
+import br.com.letscode.rebelalliance.models.Rebel;
 
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
