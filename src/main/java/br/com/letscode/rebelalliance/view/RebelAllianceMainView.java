@@ -5,8 +5,10 @@ import br.com.letscode.rebelalliance.enums.OrderBy;
 import br.com.letscode.rebelalliance.enums.Race;
 import br.com.letscode.rebelalliance.domain.Rebel;
 import br.com.letscode.rebelalliance.utils.CustomRebelLinkedList;
+import lombok.Cleanup;
 
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
 
@@ -92,7 +94,7 @@ public class RebelAllianceMainView {
 
     private void showRebelsCI() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Lista de rebeldes:\n");
+        sb.append("LISTA DE REBELDES:\n");
         for (Rebel rebel : this.centralIntelligence.getRebels())
         {
             sb.append(rebel.toString());
@@ -123,7 +125,20 @@ public class RebelAllianceMainView {
         customRebelLinkedList.mergeSort();
 
         //Print sorted list on console terminal
-        System.out.println(customRebelLinkedList);
+        System.out.println("LISTA DE REBELDES:\n");
+        System.out.println(customRebelLinkedList.toString());
+
+        //Write sorted list to file
+        @Cleanup PrintWriter writer = null;
+        try {
+            writer = new PrintWriter("arquivo.txt", "UTF-8");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        writer.println("LISTA DE REBELDES:");
+        writer.print(customRebelLinkedList.toString());
 
     }
 
