@@ -1,6 +1,7 @@
 package br.com.letscode.rebelalliance.view;
 
 import br.com.letscode.rebelalliance.controller.CentralIntelligence;
+import br.com.letscode.rebelalliance.enums.OrderBy;
 import br.com.letscode.rebelalliance.enums.Race;
 import br.com.letscode.rebelalliance.domain.Rebel;
 import br.com.letscode.rebelalliance.utils.CustomRebelLinkedList;
@@ -16,6 +17,7 @@ public class RebelAllianceMainView {
     private String name;
     private int age;
     private Race race;
+    private OrderBy orderBy;
 
     public RebelAllianceMainView(){
         this.scanner = new Scanner(System.in);
@@ -66,6 +68,19 @@ public class RebelAllianceMainView {
                 .build();
     }
 
+    private void askOrderBy() {
+        System.out.println("Por qual propriedade quer ordenar?");
+        for (OrderBy orderBy : OrderBy.values()) {
+            System.out.printf("%d - %s\n", orderBy.ordinal(), orderBy.getDescription());
+        }
+        int orderByIndex = scanner.nextInt();
+        if (orderByIndex < 0 || orderByIndex >= OrderBy.values().length) {
+            System.out.println("Propriedade inválida!");
+            askOrderBy();
+        } else
+            this.orderBy = OrderBy.values()[orderByIndex];
+    }
+
     private void requestToJoinAllianceCI() {
         boolean joined = this.centralIntelligence.requestToJoinAlliance(this.rebel);
 
@@ -97,12 +112,14 @@ public class RebelAllianceMainView {
     }
 
     private void printAndGenerateReportOfSortedRebels() {
+        askOrderBy();
+
         CustomRebelLinkedList customRebelLinkedList = new CustomRebelLinkedList();
         for (Rebel rebel :
                 this.centralIntelligence.getRebels()) {
             customRebelLinkedList.push(rebel);
         }
-        customRebelLinkedList.setOrderBy("age");
+        customRebelLinkedList.setOrderBy(orderBy.name());
         customRebelLinkedList.mergeSort();
         customRebelLinkedList.printList();
         System.out.println();
