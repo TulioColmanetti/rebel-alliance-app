@@ -10,6 +10,7 @@ import lombok.Cleanup;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class RebelAllianceMainView {
@@ -29,7 +30,7 @@ public class RebelAllianceMainView {
         System.out.println("Qual o nome do Rebelde?");
         String name = scanner.next();
         if (name.isBlank()) {
-            System.out.println("Nome inválido!");
+            System.out.println("Nome não pode ser vazio!");
             askName();
         } else
             this.name = name;
@@ -39,7 +40,7 @@ public class RebelAllianceMainView {
         System.out.println("Qual a idade do Rebelde?");
         int age = scanner.nextInt();
         if (age <= 0) {
-            System.out.println("Idade inválida!");
+            System.out.println("Idade não pode ser menor do que 0!");
             askAge();
         } else
             this.age = age;
@@ -52,22 +53,31 @@ public class RebelAllianceMainView {
         }
         int raceIndex = scanner.nextInt();
         if (raceIndex < 0 || raceIndex >= Race.values().length) {
-            System.out.println("Raça inválida!");
+            System.out.println("Raça escolhida não existe!");
             askRace();
         } else
             this.race = Race.values()[raceIndex];
     }
 
-    private void getRebelInputData() {
-        askName();
-        askAge();
-        askRace();
+    private boolean getRebelInputData() {
+        try {
+            askName();
+            askAge();
+            askRace();
 
-        this.rebel = Rebel.builder()
-                .Name(this.name)
-                .Age(this.age)
-                .Race(this.race)
-                .build();
+            this.rebel = Rebel.builder()
+                    .Name(this.name)
+                    .Age(this.age)
+                    .Race(this.race)
+                    .build();
+        } catch (InputMismatchException e) {
+            System.out.println("Dados incorretos! Tente novamente...");
+            return false;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
     private void askOrderBy() {
@@ -77,7 +87,7 @@ public class RebelAllianceMainView {
         }
         int orderByIndex = scanner.nextInt();
         if (orderByIndex < 0 || orderByIndex >= OrderBy.values().length) {
-            System.out.println("Propriedade inválida!");
+            System.out.println("Propriedade escolhida não existe!");
             askOrderBy();
         } else
             this.orderBy = OrderBy.values()[orderByIndex];
@@ -114,7 +124,15 @@ public class RebelAllianceMainView {
     }
 
     private void printAndGenerateReportOfSortedRebels() {
-        askOrderBy();
+        try {
+            askOrderBy();
+        } catch (InputMismatchException e) {
+            System.out.println("Dados incorretos! Tente novamente...");
+            return;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
 
         CustomRebelLinkedList customRebelLinkedList = new CustomRebelLinkedList();
         for (Rebel rebel :
@@ -143,7 +161,6 @@ public class RebelAllianceMainView {
         }
         writer.println("LISTA DE REBELDES:");
         writer.print(customRebelLinkedList.toString());
-
     }
 
     public void renderMenu() {
@@ -165,8 +182,8 @@ public class RebelAllianceMainView {
             option = scanner.next();
             switch (option.toUpperCase()) {
                 case "S":
-                    getRebelInputData();
-                    requestToJoinAllianceCI();
+                    if(getRebelInputData())
+                        requestToJoinAllianceCI();
                     renderMenu();
                     break;
                 case "E":
